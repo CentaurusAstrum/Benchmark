@@ -11,7 +11,7 @@ def numbers_generater(N):
     file_path = 'data/numbers.txt'
     with open(file_path, 'w') as file:
         file.write(str(numbers))
-numbers_generater(10_000)
+numbers_generater(5_000)
 
 def run_code(file_path):
     local_start_time = time.time() 
@@ -20,7 +20,7 @@ def run_code(file_path):
     return os.path.basename(file_path), local_end_time - local_start_time
 
 def main():
-    files = ['numpy_sort.py', 'Quicksort.py', 'Selectionsort.py', 'Bubblesort.py']
+    files = ['numpy_sort.py', 'Quicksort.py', 'Bubblesort.py']
     base_path = './src/python/'
     file_names = []
     execution_times = []
@@ -31,12 +31,13 @@ def main():
             file_name, execution_time = future.result()
             file_names.append(file_name)
             execution_times.append(execution_time)
+            print(file_name, "was done after", execution_time)
 
     plt.figure(figsize=(10, 6))
     bars = plt.bar(file_names, execution_times, color='skyblue')
     plt.xlabel('Dateiname')
     plt.ylabel('Ausführungszeit (s)')
-    plt.title('Ausführungszeit der Sortieralgorithmen')
+    plt.title(f'Ausführungszeit der Sortieralgorithmen mit {len(numbers)} elementen')
     plt.xticks(rotation=45)
 
     for bar in bars:
